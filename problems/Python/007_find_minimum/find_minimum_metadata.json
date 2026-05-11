@@ -1,0 +1,14 @@
+{
+  "id": "007",
+  "title": "Find Minimum Value",
+  "difficulty": "easy",
+  "language": "python",
+  "description": "This function should find the smallest number in a list. It returns the wrong variable.",
+  "instructions": "Fix the `find_minimum` function so it returns the minimum value.",
+  "expected_behavior": "[3,1,4,1,5] \u2192 1, [10,20,30] \u2192 10.",
+  "hints": [
+    "Check what variable is returned.",
+    "Make sure minimum is returned, not the input."
+  ],
+  "bug_type": "incorrect_return_value"
+}

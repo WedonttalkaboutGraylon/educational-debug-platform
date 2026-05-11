@@ -1,0 +1,14 @@
+{
+  "id": "010",
+  "title": "Celsius to Fahrenheit",
+  "difficulty": "easy",
+  "language": "python",
+  "description": "This function should convert Celsius to Fahrenheit using the formula (C * 9/5) + 32. The formula uses the wrong operator.",
+  "instructions": "Fix the `celsius_to_fahrenheit` function so it uses the correct conversion formula.",
+  "expected_behavior": "0\u00b0C \u2192 32.0\u00b0F, 100\u00b0C \u2192 212.0\u00b0F, -40\u00b0C \u2192 -40.0\u00b0F.",
+  "hints": [
+    "Check the formula being used.",
+    "The correct formula multiplies by 9/5, not divides."
+  ],
+  "bug_type": "wrong_conditional"
+}

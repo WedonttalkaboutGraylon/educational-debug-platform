@@ -1,0 +1,14 @@
+{
+  "id": "015",
+  "title": "String Repeat",
+  "difficulty": "easy",
+  "language": "python",
+  "description": "This function should repeat a string n times and return the result. It returns the count instead of the repeated string.",
+  "instructions": "Fix the `string_repeat` function so it returns the repeated string.",
+  "expected_behavior": "string_repeat('ab', 3) \u2192 'ababab', string_repeat('x', 5) \u2192 'xxxxx'.",
+  "hints": [
+    "Check what variable is being returned.",
+    "The repeated string should be returned, not n."
+  ],
+  "bug_type": "incorrect_return_value"
+}

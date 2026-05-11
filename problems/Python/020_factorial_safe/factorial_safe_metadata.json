@@ -1,0 +1,17 @@
+{
+  "id": "020",
+  "title": "Factorial (Safe)",
+  "difficulty": "medium",
+  "language": "python",
+  "problem_type": "write_from_scratch",
+  "function_signature": "def factorial(n: int) -> int:",
+  "description": "Write a factorial function that handles all inputs correctly including zero, negative numbers, and large numbers like 1000.",
+  "instructions": "Implement factorial so it returns n! for non-negative integers, returns -1 for negative inputs, and handles large inputs without crashing.",
+  "expected_behavior": "factorial(5) → 120, factorial(0) → 1, factorial(-1) → -1, factorial(10) → 3628800.",
+  "hints": [
+    "First handle the special cases: what should happen for negative numbers?",
+    "factorial(0) is defined as 1 by convention.",
+    "Python integers can be arbitrarily large so you don't need to worry about overflow for large inputs like 1000."
+  ],
+  "bug_type": "write_from_scratch"
+}

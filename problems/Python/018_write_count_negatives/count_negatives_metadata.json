@@ -1,0 +1,17 @@
+{
+  "id": "018",
+  "title": "Count Negatives",
+  "difficulty": "easy",
+  "language": "python",
+  "problem_type": "write_from_scratch",
+  "function_signature": "def count_negatives(numbers: list) -> int:",
+  "description": "Write a function that counts how many negative numbers are in a list. Zero is not negative.",
+  "instructions": "Implement count_negatives by iterating through the list and counting numbers less than zero.",
+  "expected_behavior": "count_negatives([-1, 2, -3, 4]) → 2, count_negatives([1, 2, 3]) → 0, count_negatives([0, -1]) → 1.",
+  "hints": [
+    "Start a counter at zero.",
+    "Loop through each number. If the number is less than zero, increment your counter.",
+    "Zero is not negative — use strictly less than, not less than or equal to."
+  ],
+  "bug_type": "write_from_scratch"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "011",
+  "title": "Count Vowels",
+  "difficulty": "easy",
+  "language": "python",
+  "description": "This function should count all vowels in a string including uppercase. It only checks lowercase vowels.",
+  "instructions": "Fix the `count_vowels` function so it counts both uppercase and lowercase vowels.",
+  "expected_behavior": "'Hello World' \u2192 3, 'AEIOU' \u2192 5, 'rhythm' \u2192 0.",
+  "hints": [
+    "Consider converting the string before checking.",
+    "uppercase vowels are also vowels."
+  ],
+  "bug_type": "wrong_conditional"
+}

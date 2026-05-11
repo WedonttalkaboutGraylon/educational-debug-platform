@@ -1,0 +1,14 @@
+{
+  "id": "001",
+  "title": "Calculate Average",
+  "difficulty": "easy",
+  "language": "python",
+  "description": "This function should calculate the average of a list of numbers and return it as a float. It contains a bug that causes it to return the wrong value.",
+  "instructions": "Fix the `calculate_average` function so it correctly returns the average of all numbers.",
+  "expected_behavior": "Given [10, 20, 30], return 20.0.",
+  "hints": [
+    "Look at what variable is being returned.",
+    "Make sure the returned variable matches what was calculated."
+  ],
+  "bug_type": "incorrect_return_value"
+}

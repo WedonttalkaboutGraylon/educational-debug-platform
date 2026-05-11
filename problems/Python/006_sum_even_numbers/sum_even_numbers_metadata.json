@@ -1,0 +1,14 @@
+{
+  "id": "006",
+  "title": "Sum Even Numbers",
+  "difficulty": "easy",
+  "language": "python",
+  "description": "This function should sum all even numbers in a list. The condition checks for odd numbers instead of even.",
+  "instructions": "Fix the `sum_even` function so it correctly sums only even numbers.",
+  "expected_behavior": "[1,2,3,4,5,6] \u2192 12, [1,3,5] \u2192 0.",
+  "hints": [
+    "Look at the modulo condition.",
+    "Even numbers have remainder 0 when divided by 2."
+  ],
+  "bug_type": "wrong_conditional"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "005",
+  "title": "Reverse a List",
+  "difficulty": "easy",
+  "language": "python",
+  "description": "This function should return a new list with the elements in reverse order. It contains an off-by-one bug that drops the first element.",
+  "instructions": "Fix the `reverse_list` function so it includes every element in reverse order.",
+  "expected_behavior": "[1,2,3] \u2192 [3,2,1], [4,5,6,7] \u2192 [7,6,5,4].",
+  "hints": [
+    "Check the loop starting index.",
+    "Think about which index is the last element."
+  ],
+  "bug_type": "off_by_one"
+}
