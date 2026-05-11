@@ -1,0 +1,15 @@
+{
+  "id": "001_factorial",
+  "title": "Factorial",
+  "difficulty": "easy",
+  "language": "python",
+  "description": "Write a function that computes the factorial of a number. The factorial of n (written n!) is the product of all positive integers from 1 to n. For example, 5! = 5 x 4 x 3 x 2 x 1 = 120. The factorial of 0 is defined as 1.",
+  "instructions": "Complete the factorial function so it returns the correct factorial for any non-negative integer.",
+  "expected_behavior": "factorial(0) -> 1, factorial(1) -> 1, factorial(5) -> 120, factorial(10) -> 3628800",
+  "hints": [
+    "Think about what factorial(0) and factorial(1) should return — these are your base cases.",
+    "factorial(n) = n x factorial(n-1). You can use a loop or recursion.",
+    "Try a loop: start with result = 1 and multiply by each number from 1 to n."
+  ],
+  "problem_type": "write_from_scratch"
+}
