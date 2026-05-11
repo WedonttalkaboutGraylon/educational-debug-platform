@@ -46,6 +46,7 @@ export default function App() {
   const [progress, setProgress] = useState<Record<string, boolean>>({});
   const [filterLang, setFilterLang] = useState<string>("all");
   const [filterDiff, setFilterDiff] = useState<string>("all");
+  const [savedCode, setSavedCode] = useState<Record<string, string>>({});
 
   useEffect(() => {
     fetchProblems();
@@ -64,7 +65,7 @@ export default function App() {
       .then(r => r.json())
       .then(data => {
         setSelected(data);
-        setCode(data.starter_code || "");
+        setCode(savedCode[data.folder] || data.starter_code || "");
         clearResults();
         setShowHints(false);
         setHintIndex(0);
@@ -78,6 +79,7 @@ export default function App() {
 
   const handleRun = async () => {
     if (!selected) return;
+    setSavedCode(prev => ({ ...prev, [selected.folder]: code }));
     setRunning(true);
     setOutput(""); setOutputError(""); setSubmitResults([]); setSubmitPassed(null);
     try {
@@ -99,6 +101,7 @@ export default function App() {
 
   const handleSubmit = async () => {
     if (!selected) return;
+    setSavedCode(prev => ({ ...prev, [selected.folder]: code }));
     setSubmitting(true);
     setOutput(""); setOutputError(""); setSubmitResults([]); setSubmitPassed(null);
     try {
@@ -132,6 +135,7 @@ export default function App() {
 
   const handleSkip = () => {
     if (!problems.length || !selected) return;
+    setSavedCode(prev => ({ ...prev, [selected.folder]: code }));
     const filtered = getFilteredProblems();
     const idx = filtered.findIndex(p => p.folder === selected.folder);
     loadProblem(filtered[(idx + 1) % filtered.length]);
@@ -154,13 +158,12 @@ export default function App() {
   const completedCount = problems.filter(p => progress[p.folder] || p.completed).length;
   const diffColor = (d: string) => d === "easy" ? "#4ec94e" : "#f0a500";
   const langLabel = (l: string) => l === "cpp" ? "C++" : l.charAt(0).toUpperCase() + l.slice(1);
-  const editorLang = (l: string) => l === "cpp" ? "cpp" : l === "typescript" ? "typescript" : "python";
+  const editorLang = (l: string) => l === "cpp" ? "cpp" : "python";
 
   const filteredProblems = getFilteredProblems();
 
   return (
     <div className="app">
-      {/* Sidebar */}
       <div className="sidebar">
         <div className="sidebar-logo">🐛</div>
         {(["problems", "settings"] as const).map(panel => (
@@ -176,15 +179,12 @@ export default function App() {
         </div>
       </div>
 
-      {/* Left Panel */}
       <div className="left-panel">
-
         {activePanel === "problems" && (
           <div className="panel-content">
             {!selected ? (
               <>
                 <h2 className="panel-title">Problems</h2>
-
                 <div className="progress-bar-container">
                   <div className="progress-bar-label">
                     <span>{completedCount} / {problems.length} completed</span>
@@ -194,7 +194,6 @@ export default function App() {
                     <div className="progress-bar-fill" style={{ width: `${(completedCount / Math.max(problems.length, 1)) * 100}%` }} />
                   </div>
                 </div>
-
                 <div className="filter-row">
                   <select className="filter-select" value={filterLang} onChange={e => setFilterLang(e.target.value)}>
                     <option value="all">All Languages</option>
@@ -207,7 +206,6 @@ export default function App() {
                     <option value="medium">Medium</option>
                   </select>
                 </div>
-
                 <div className="problem-list">
                   {filteredProblems.length === 0 && <p className="no-problems">No problems match your filters.</p>}
                   {filteredProblems.map(p => (
@@ -229,34 +227,27 @@ export default function App() {
               </>
             ) : (
               <>
-                <button className="back-btn" onClick={() => { setSelected(null); clearResults(); }}>← Back</button>
-
+                <button className="back-btn" onClick={() => { setSavedCode(prev => ({ ...prev, [selected.folder]: code })); setSelected(null); clearResults(); }}>← Back</button>
                 {(progress[selected.folder] || selected.completed) && (
                   <div className="completed-banner">✓ Completed</div>
                 )}
-
                 <h2 className="panel-title">{selected.title}</h2>
                 <div className="meta-row">
                   <span className="lang-badge">{langLabel(selected.language)}</span>
                   <span className="diff-badge" style={{ color: diffColor(selected.difficulty) }}>{selected.difficulty}</span>
                 </div>
-
                 <div className="section-label">Description</div>
                 <p className="panel-text">{selected.description}</p>
-
                 <div className="section-label">Instructions</div>
                 <p className="panel-text">{selected.instructions}</p>
-
                 <div className="section-label">Expected Behavior</div>
                 <p className="panel-text">{selected.expected_behavior}</p>
-
                 {selected.function_signature && (
                   <>
                     <div className="section-label">Function Signature</div>
                     <pre className="signature-box">{selected.function_signature}</pre>
                   </>
                 )}
-
                 {selected.hints?.length > 0 && (
                   <div className="hints-section">
                     {showHints && (
@@ -290,13 +281,13 @@ export default function App() {
             <p className="panel-text">{completedCount} of {problems.length} problems completed. Progress is saved for this session.</p>
             <button className="hints-toggle" style={{ marginTop: 12 }} onClick={() => {
               setProgress({});
+              setSavedCode({});
               setProblems(prev => prev.map(p => ({ ...p, completed: false })));
             }}>Reset Progress</button>
           </div>
         )}
       </div>
 
-      {/* Main Area */}
       <div className="main-area">
         <div className="editor-area">
           <div className="editor-header">
@@ -313,13 +304,15 @@ export default function App() {
               <button className="action-btn skip-btn" onClick={handleSkip} disabled={!selected}>⏭ Skip</button>
             </div>
           </div>
-
           <div className="editor-wrapper">
             <Editor
               height="100%"
               language={selected ? editorLang(selected.language) : "python"}
               value={code}
-              onChange={val => setCode(val || "")}
+              onChange={val => {
+                setCode(val || "");
+                if (selected) setSavedCode(prev => ({ ...prev, [selected.folder]: val || "" }));
+              }}
               theme="vs-dark"
               options={{
                 automaticLayout: true,
@@ -348,7 +341,6 @@ export default function App() {
             {!selected && <span className="output-placeholder">Load a problem and click Run to see output.</span>}
             {output && <pre className="output-text">{output}</pre>}
             {outputError && <pre className="output-error">{outputError}</pre>}
-
             {submitResults.length > 0 && (
               <div className="test-results">
                 <div className="test-results-title">Test Results</div>
