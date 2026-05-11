@@ -40,7 +40,7 @@ export default function App() {
     const [submitPassed, setSubmitPassed] = useState<boolean | null>(null);
     const [running, setRunning] = useState(false);
     const [submitting, setSubmitting] = useState(false);
-    const [activePanel, setActivePanel] = useState<"problems" | "settings">("problems");
+    const [activePanel, setActivePanel] = useState<"problems" | "progress">("problems");
     const [showHints, setShowHints] = useState(false);
     const [hintIndex, setHintIndex] = useState(0);
     const [progress, setProgress] = useState<Record<string, boolean>>({});
@@ -168,10 +168,10 @@ export default function App() {
         <div className="app">
             <div className="sidebar">
                 <div className="sidebar-logo">🐛</div>
-                {(["problems", "settings"] as const).map(panel => (
+                {(["problems", "progress"] as const).map(panel => (
                     <button key={panel} className={`sidebar-btn ${activePanel === panel ? "active" : ""}`}
                         onClick={() => setActivePanel(panel)} title={panel}>
-                        {panel === "problems" ? "📋" : "⚙️"}
+                        {panel === "problems" ? "📋" : "📊"}
                     </button>
                 ))}
                 <div className="sidebar-progress" title={`${completedCount}/${problems.length} completed`}>
@@ -274,13 +274,21 @@ export default function App() {
                     </div>
                 )}
 
-                {activePanel === "settings" && (
+                {activePanel === "progress" && (
                     <div className="panel-content">
-                        <h2 className="panel-title">Settings</h2>
-                        <div className="section-label">Languages</div>
+                        <h2 className="panel-title">Progress</h2>
+                        <div className="section-label">Overview</div>
+                        <p className="panel-text">{completedCount} of {problems.length} problems completed.</p>
+                        <div className="progress-bar-container" style={{ marginTop: 8 }}>
+                            <div className="progress-bar-label">
+                                <span>{Math.round((completedCount / Math.max(problems.length, 1)) * 100)}% complete</span>
+                            </div>
+                            <div className="progress-bar-track">
+                                <div className="progress-bar-fill" style={{ width: `${(completedCount / Math.max(problems.length, 1)) * 100}%` }} />
+                            </div>
+                        </div>
+                        <div className="section-label" style={{ marginTop: 16 }}>Languages</div>
                         <p className="panel-text">Python and C++ are fully supported with code execution and test grading.</p>
-                        <div className="section-label">Progress</div>
-                        <p className="panel-text">{completedCount} of {problems.length} problems completed. Progress is saved for this session.</p>
                         <button className="hints-toggle" style={{ marginTop: 12 }} onClick={() => {
                             setProgress({});
                             setSavedCode({});
